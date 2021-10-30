@@ -1,3 +1,6 @@
+# For testing purposes only inside a Jupyter environment.
+# Technically the data model being used should not need reducing any further.
+
 # ([{data}, {Dictionary}], [list,of,parameters]) -> [[array,of],[arrays,init]]
 def extract_for_clustering(data,parameters):
     output = []
@@ -7,11 +10,3 @@ def extract_for_clustering(data,parameters):
             deets.append(data[i][p])
         output.append(deets)
     return output
-
-# remove primary keys ('Number' & 'Timepoint')
-def ditch_primary_keys(data):
-    output = data.copy()
-    output.pop('Number')
-    output.pop('Timepoint')
-    return output
-
