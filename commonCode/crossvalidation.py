@@ -1,5 +1,7 @@
 # Common functions for use in setting up cross fold validation.
 
+import copy
+
 # Get list of primary keys from DataSet; {DataSet} -> [{Number,Timepoint},...]
 def get_primary_keys(dataset):
     output = []
@@ -33,3 +35,15 @@ def get_test_data(dataset, pk):
 # Extract training data (Dataset - test data); {Dataset} -> {[Records]}
 def get_train_data(dataset, testdata):
     return [ditch_primary_keys(a) for a in dataset if (a['Number'],a['Timepoint']) != (testdata['Number'],testdata['Timepoint'])]    
+
+# Get list of subject values {Record} -> {data}
+def get_subject_values(dataset,subject):
+    return [x[subject] for x in dataset]
+
+# Strip subject values from list of Records; {Dataset} -> {data}
+def strip_subject_values(dataset,subject):
+    output = copy.deepcopy(dataset)
+    for x in output:
+        x.pop(subject)
+    return output
+
