@@ -36,7 +36,7 @@ def get_test_data(dataset, pk):
 def get_train_data(dataset, testdata):
     return [ditch_primary_keys(a) for a in dataset if (a['Number'],a['Timepoint']) != (testdata['Number'],testdata['Timepoint'])]    
 
-# Get list of subject values {Record} -> {data}
+# Get list of subject values from list of records {Record} -> {data}
 def get_subject_values(dataset,subject):
     return [x[subject] for x in dataset]
 
