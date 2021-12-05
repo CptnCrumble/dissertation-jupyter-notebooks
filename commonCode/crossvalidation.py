@@ -47,3 +47,14 @@ def strip_subject_values(dataset,subject):
         x.pop(subject)
     return output
 
+# Generate the X,Y (data, subject) structure used by sci-kit learn models, must pass in pandas functions as parameters
+def create_model_data(dataset,subject,pdArrayFunc,pdVstackFunc):    
+    # Array of subject values
+    y = pdArrayFunc(get_subject_values(dataset,subject))
+    # Array of non-subject values
+    np_arrays = [pdArrayFunc(list(x.values())) for x in strip_subject_values(dataset,subject)]
+    x = np_arrays[0]
+    for i in range(1,len(np_arrays)):
+        x = pdVstackFunc([x,np_arrays[i]])
+
+    return x,y
